@@ -55,6 +55,12 @@
       <pre>&lt;img src="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=450 height=200 backcolor='654321' forecolor='fedcba' format='jpg' %}"&gt;</pre>
       <p>Here we have generated the image in JPG format.</p>
     </div>
+    <div class="col-md-6 mt-4">
+      <h5>Custom Text</h5>
+      <img src="{% url 'placeholder' width=500 height=200  %}?text=Custom Text" class="img-fluid" alt="500px x 200px">
+      <pre>&lt;img src="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=500 height=200 %}?text=Custom Text"&gt;</pre>
+      <p>Here we have generated the image in JPG format.</p>
+    </div>
   </div>
 
 {% endblock %}
