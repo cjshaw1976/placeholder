@@ -5,10 +5,10 @@ https://docs.djangoproject.com/en/dev/topics/http/urls/#registering-custom-path-
 
 
 # Match a hexcolor in the url.
-# Must start with a # and contain 3 or 6 hexidecimal characters (0-9 and A-F),
+# Must start with a # and contain 6 hexidecimal characters (0-9 and A-F),
 # in either lower or upper case.
 class HexColorConverter:
-    regex = '([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})'
+    regex = '([A-Fa-f0-9]{6})'
 
     def to_python(self, value):
         return value
