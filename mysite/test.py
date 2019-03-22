@@ -316,3 +316,29 @@ class SimpleTest(unittest.TestCase):
         self.assertEqual(self.parser.image.size[0], 10)
         self.assertEqual(self.parser.image.size[1], 15)
         self.assertEqual(self.parser.image.mode, 'RGB')
+
+        # Make second line text shorter than first line
+        response = self.client.get('/100/150/?text=x')
+
+        # Check that the response is 200 OK.
+        self.assertEqual(response.status_code, 200)
+
+        # Check the response is a png
+        self.assertEqual("image/png", response['Content-Type'])
+
+        # Feed the image Parser and check the width, height and mode.
+        self.parser.feed(response.content)
+        self.assertEqual(self.parser.image.mode, 'RGB')
+
+        # Make second line text blank
+        response = self.client.get('/100/150/?text=')
+
+        # Check that the response is 200 OK.
+        self.assertEqual(response.status_code, 200)
+
+        # Check the response is a png
+        self.assertEqual("image/png", response['Content-Type'])
+
+        # Feed the image Parser and check the width, height and mode.
+        self.parser.feed(response.content)
+        self.assertEqual(self.parser.image.mode, 'RGB')

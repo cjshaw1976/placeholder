@@ -51,8 +51,7 @@ def fit_font(width, height, drawobject, text1, text2=None, fontsize=25):
 
 
 """ Function to create placeholder rectangle """
-def placeholder(width=600, height=0, backcolor='#f1f1f1', forecolor='#000',
-                text='placeholder.amid.africa'):
+def placeholder(width, height, backcolor, forecolor, text):
     # If only width set, make the shape a square
     if height==0:
         height=width
@@ -71,10 +70,15 @@ def placeholder(width=600, height=0, backcolor='#f1f1f1', forecolor='#000',
     if font:
         text_width, text_height = drawobject.textsize(text, font=font)
         textd_width, textd_height = drawobject.textsize(textd, font=font)
-        drawobject.text((((width/2)-(textd_width/2)),(height/2)-(textd_height*1.5)),
-                        textd, font=font, fill=hex_to_rgb(forecolor))
-        drawobject.text((((width/2)-(text_width/2)),(height/2)+(text_height*0.5)),
-                        text, font=font, fill=hex_to_rgb(forecolor))
+
+        if text:    # Two lines of text
+            drawobject.text((((width/2)-(textd_width/2)),(height/2)-(textd_height*1.5)),
+                            textd, font=font, fill=hex_to_rgb(forecolor))
+            drawobject.text((((width/2)-(text_width/2)),(height/2)+(text_height*0.5)),
+                            text, font=font, fill=hex_to_rgb(forecolor))
+        else:       # One line of text
+            drawobject.text((((width/2)-(textd_width/2)),(height/2)-(textd_height*0.5)),
+                            textd, font=font, fill=hex_to_rgb(forecolor))
     return img
 
 
@@ -83,7 +87,8 @@ def PlaceholderView(request, width, height=0, backcolor='#f1f1f1',
                     forecolor='#000', format='png'):
     if format.lower()=='jpg':
         format = 'JPEG'
+    text = request.GET.get('text', 'placeholder.amid.africa')
     response = HttpResponse(content_type="image/{}".format(format))
-    image = placeholder(width, height, backcolor, forecolor)
+    image = placeholder(width, height, backcolor, forecolor, text)
     image.save(response, format)
     return response
