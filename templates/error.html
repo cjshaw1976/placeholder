@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load staticfiles  %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-8">
+      <h2>Opps, a {{ code }} error has been encountered!</h2>
+      <hr>
+      <h5>{{ title }}</h5>
+      <p>{{ description }}</p>
+      <hr>
+      {% if code == 404 %}
+      <p>If you are trying to display a placeholder and see this message, please have a look at the samples on our home page as out of range values will land you here.</p>
+      {% endif %}
+      <p>All errors are logged and reviewed, because our visitors are important to us.<p>
+    </div>
+  </div>
+{% endblock %}

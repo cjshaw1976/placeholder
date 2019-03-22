@@ -4,7 +4,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, register_converter
+from django.urls import include, path, register_converter
 
 from .converters import (HexColorConverter, MaxWidthConverter,
                          MaxHeightConverter, FileFormatConverter)
@@ -32,5 +32,11 @@ urlpatterns = [
     path('<maxwidth:width>/<maxheight:height>/<hexcolor:backcolor>/<hexcolor:forecolor>/<fileformat:format>/', PlaceholderView, name="placeholder"),
 ]
 
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler400 = 'mysite.views.error_400_view'
+handler403 = 'mysite.views.error_403_view'
+handler404 = 'mysite.views.error_404_view'
+handler500 = 'mysite.views.error_500_view'
