@@ -1,11 +1,12 @@
 body {
   padding-top: 5rem;
 }
-.starter-template {
-  padding: 3rem 1.5rem;
-  text-align: center;
+.container {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
+/*  Nav Bar Search Box  */
 .has-search .form-control {
     padding-left: 2.375rem;
 }
@@ -20,4 +21,9 @@ body {
     text-align: center;
     pointer-events: none;
     color: #aaa;
+}
+
+
+.img-fluid {
+    margin-bottom: 4px;
 }

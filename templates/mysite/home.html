@@ -2,15 +2,59 @@
 {% load static %}
 
 {% block content %}
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>Django Placeholder Server</h2>
+      <p>An image placeholder is a dummy image, intended to full up a space on a webpage until an actual image is inserted. Django placeholders, created by Amid Africa, creates image placeholders 'on the fly'.<p>
 
-{% if demo_list %}
-    {% for demo in demo_list %}
-      <h1>{{ demo.demo_title }}</h1>
-      <p class="lead">{{ demo.demo_description }}</p>
-    {% endfor %}
-    {% else %}
-      <h1>Django Bootstrap starter template</h1>
-      <p class="lead">Use this document as a way to quickly start any new django project.<br>All you get is this text and a mostly barebones HTML document.</p>
-{% endif %}
+      <h3>Usage</h3>
+      <p>To create a placeholder, simply put the required dimensions and colors in the URL as follows.<br/>
+      http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}/width/height/background/foreground/format/</p>
+      <ul>
+        <li><b>width:</b> Required, The width of the placeholder image in pixels. Maximum 1920px.</li>
+        <li><b>height:</b> Optional, The height of the placeholder image in pixels. Defaults to the width if not supplied. Maximum 1080px.</li>
+        <li><b>background:</b> Optional, The background color of the placeholder.  Defaults to a pleasant gray 'f1f1f1'.  Requires a 6 character hex value <u>without</u> the leading hash (#).</li>
+        <li><b>foreground:</b> Optional, The color of the placeholder text.  Defaults to black '000000'.  Requires a 6 character hex value <u>without</u> the leading hash (#). If you want to specify the forecolor, you have to specify the backcolor too.</li>
+        <li><b>format:</b> Optional, The file format returned. Defaults to PNG. The options are: BMP, GIF, JPG, PCX, PNG.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 mt-4">
+      <h3>Examples</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mt-4">
+      <h5>Set width and height</h5>
+      <img src="{% url 'placeholder' width=450 height=220 %}" class="img-fluid" alt="450px x 220px">
+      <pre>&lt;img src="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=450 height=220 %}"&gt;</pre>
+      <p>Here we are setting the width as 450px and the height as 220px.</p>
+    </div>
+    <div class="col-md-6 mt-4">
+      <h5>Set width only</h5>
+      <img src="{% url 'placeholder' width=220 %}" class="img-fluid" alt="220px x 220px">
+      <pre>&lt;img src="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=220 %}"&gt;</pre>
+      <p>Here, we have set the width only. The heigth is automatically the same as the with and a square is created.</p>
+    </div>
+    <div class="col-md-6 mt-4">
+      <h5>Set background color</h5>
+      <img src="{% url 'placeholder' width=300 height=200 backcolor='789abc' %}" class="img-fluid" alt="300px x 200px">
+      <pre>&lt;img src="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=300 height=200 backcolor='789abc' %}"&gt;</pre>
+      <p>Here we have set the background color as required. The foreground is still the default.</p>
+    </div>
+    <div class="col-md-6 mt-4">
+      <h5>Set background and foreground colors</h5>
+      <img src="{% url 'placeholder' width=250 backcolor='123456' forecolor='dddddd' %}" class="img-fluid" alt="250px x 250px">
+      <pre>&lt;img src="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=250 backcolor='123456' forecolor='dddddd' %}"&gt;</pre>
+      <p>Here we have set the background and foreground colors as required. For this example, only the width is set to show the height is still optional.</p>
+    </div>
+    <div class="col-md-6 mt-4">
+      <h5>Set file type</h5>
+      <img src="{% url 'placeholder' width=450 height=200  backcolor='654321' forecolor='fedcba' format='jpg' %}" class="img-fluid" alt="450px x 200px">
+      <pre>&lt;img src="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=450 height=200 backcolor='654321' forecolor='fedcba' format='jpg' %}"&gt;</pre>
+      <p>Here we have generated the image in JPG format.</p>
+    </div>
+  </div>
 
 {% endblock %}
