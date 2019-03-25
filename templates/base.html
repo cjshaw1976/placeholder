@@ -25,52 +25,23 @@
 
   <!-- Top Navigation -->
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="{% url 'home' %}">Placeholder</a>
+      <a class="navbar-brand" href="{% url 'home' %}">Placeholder By Amid Africa</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <form class="form-inline my-2 my-lg-0 col-md-7">
-          <div class="form-group has-search col-12">
-              <span class="fa fa-search form-control-feedback"></span>
-              <input type="text" class="form-control col-12" placeholder="Search">
-            </div>
-        </form>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Sign up</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Sign In</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">About</a>
-              <a class="dropdown-item" href="#">FAQ</a>
-            </div>
-          </li>
-        </ul>
-
-      </div>
     </nav>
 
 
   <!-- Main Container -->
   <main role="main" class="container">
-
-      <div class="starter-template">
-        {% block content %}
-        {% endblock %}
-      </div>
-
+    {% block content %}
+    {% endblock %}
   </main><!-- /.container -->
 
 
   <!-- Footer -->
   <footer class="container text-center">
-    <p>&copy; Amid Africa 2019 - MIT Licence</p>
+    <p>&copy; <a href="https://amid.africa" target="_blank">Amid Africa</a> 2019 - MIT Licence</p>
   </footer>
 
 
@@ -81,10 +52,14 @@
   crossorigin="anonymous"></script>
 
   <!-- Complete Bootstrap JavaScript Bundle -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
+  <script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"
+  integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP"
+  crossorigin="anonymous"></script>
 
-  <!-- Complete Bootstrap JavaScript -->
-  <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> -->
+  <!-- JavaScript Container -->
+  {% block javascript %}
+  {% endblock %}
 </body>
 
 </html>

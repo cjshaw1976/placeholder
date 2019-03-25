@@ -8,8 +8,8 @@
       <p>An image placeholder is a dummy image, intended to full up a space on a webpage until an actual image is inserted. Django placeholders, created by Amid Africa, creates image placeholders 'on the fly'.<p>
 
       <h3>Usage</h3>
-      <p>To create a placeholder, simply put the required dimensions and colors in the URL as follows.<br/>
-      http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}/width/height/background/foreground/format/</p>
+      <p>To create a placeholder, simply put the required dimensions and colors in the URL as follows.<p>
+      <pre>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}/width/height/background/foreground/format/</pre>
       <ul>
         <li><b>width:</b> Required, The width of the placeholder image in pixels. Maximum 1920px.</li>
         <li><b>height:</b> Optional, The height of the placeholder image in pixels. Defaults to the width if not supplied. Maximum 1080px.</li>
@@ -19,48 +19,326 @@
       </ul>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-sm-12 mt-4">
+      <h3>Builder</h3>
+      <p>Build your place holders quickly with this easy to use form.</p>
+    </div>
+    <div class="col-md-10 offset-md-1">
+      <div class="card">
+        <div class="card-body">
+          <form id="builderForm">
+            <div class="form-group row">
+              <label for="width" class="col-md-3 col-form-label">Width</label>
+              <div class="col-md-9">
+                <div class="input-group">
+                  <input id="width" name="width" placeholder="Width In Pixels" type="text" required="required" class="form-control" aria-describedby="width-addon">
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="width-addon">px</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="height" class="col-md-3 col-form-label">Height</label>
+              <div class="col-md-9">
+                <div class="input-group">
+                  <input id="height" name="height" placeholder="Height In Pixels" type="text" class="form-control" aria-describedby="height-addon">
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="height-addon">px</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="backcolor" class="col-md-3 col-form-label">Background Color</label>
+              <div class="col-md-9">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="backcolor-addon">#</span>
+                  </div>
+                  <input id="backcolor" name="backcolor" placeholder="Background Hex Value" type="text" class="form-control" aria-describedby="backcolor-addon">
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="forecolor" class="col-md-3 col-form-label">Text Color</label>
+              <div class="col-md-9">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="forecolor-addon">#</span>
+                  </div>
+                  <input id="forecolor" name="forecolor" placeholder="Foreground Hex Value" type="text" class="form-control" aria-describedby="forecolor-addon">
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="format" class="col-md-3 col-form-label">Image Format</label>
+              <div class="col-md-9">
+                <select id="format" name="format" class="custom-select" aria-describedby="formatHelpBlock">
+                  <option value="">None</option>
+                  <option value="bmp">bmp</option>
+                  <option value="gif">gif</option>
+                  <option value="jpg">jpg</option>
+                  <option value="pcx">pcx</option>
+                  <option value="png">png</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="text" class="col-md-3 col-form-label">Text</label>
+              <div class="col-md-9">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text" id="text-addon">?text=</div>
+                  </div>
+                  <input id="text" name="text" placeholder="placeholder.amid.africa" type="text" class="form-control" aria-describedby="text-addon">
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="result" class="col-md-3 col-form-label">Code</label>
+              <div class="col-md-9">
+                <div><button class="btn btn-outline-secondary copy-button" type="button"
+                      data-toggle="tooltip" title="Copy to Clipboard" data-clipboard-target="#result">Copy</button>
+                  <textarea id="result" name="result" rows="3" class="form-control" readonly></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <button id="viewButton" name="viewButton" type="button" class="btn btn-success col-sm-12" data-toggle="modal" data-target="#viewModal" disabled>View</button>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <button id="reset" name="reset" type="button" class="btn btn-info col-sm-12">Reset Form</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-sm-12 mt-4">
       <h3>Examples</h3>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6 mt-4">
-      <h5>Set width and height</h5>
-      <img src="{% url 'placeholder' width=450 height=220 %}" class="img-fluid" alt="450px x 220px">
-      <pre>&lt;img src="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=450 height=220 %}"&gt;</pre>
-      <p>Here we are setting the width as 450px and the height as 220px.</p>
-    </div>
-    <div class="col-md-6 mt-4">
-      <h5>Set width only</h5>
-      <img src="{% url 'placeholder' width=220 %}" class="img-fluid" alt="220px x 220px">
-      <pre>&lt;img src="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=220 %}"&gt;</pre>
-      <p>Here, we have set the width only. The heigth is automatically the same as the with and a square is created.</p>
-    </div>
-    <div class="col-md-6 mt-4">
-      <h5>Set background color</h5>
-      <img src="{% url 'placeholder' width=300 height=200 backcolor='789abc' %}" class="img-fluid" alt="300px x 200px">
-      <pre>&lt;img src="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=300 height=200 backcolor='789abc' %}"&gt;</pre>
-      <p>Here we have set the background color as required. The foreground is still the default.</p>
-    </div>
-    <div class="col-md-6 mt-4">
-      <h5>Set background and foreground colors</h5>
-      <img src="{% url 'placeholder' width=250 backcolor='123456' forecolor='dddddd' %}" class="img-fluid" alt="250px x 250px">
-      <pre>&lt;img src="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=250 backcolor='123456' forecolor='dddddd' %}"&gt;</pre>
-      <p>Here we have set the background and foreground colors as required. For this example, only the width is set to show the height is still optional.</p>
-    </div>
-    <div class="col-md-6 mt-4">
-      <h5>Set file type</h5>
-      <img src="{% url 'placeholder' width=450 height=200  backcolor='654321' forecolor='fedcba' format='jpg' %}" class="img-fluid" alt="450px x 200px">
-      <pre>&lt;img src="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=450 height=200 backcolor='654321' forecolor='fedcba' format='jpg' %}"&gt;</pre>
-      <p>Here we have generated the image in JPG format.</p>
-    </div>
-    <div class="col-md-6 mt-4">
-      <h5>Custom Text</h5>
-      <img src="{% url 'placeholder' width=500 height=200  %}?text=Custom Text" class="img-fluid" alt="500px x 200px">
-      <pre>&lt;img src="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=500 height=200 %}?text=Custom Text"&gt;</pre>
-      <p>Here we have generated the image in JPG format.</p>
+
+    <div class="card-columns">
+
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Set width and height</h5>
+          <img src="{% url 'placeholder' width=450 height=220 %}" class="img-fluid" alt="450px x 220px">
+          <div><button class="btn btn-outline-secondary copy-button" type="button"
+                data-toggle="tooltip" title="Copy to Clipboard" data-clipboard-target="#copy-input-1">Copy</button>
+            <textarea class="form-control mt-2" id="copy-input-1" rows="2" readonly>&lt;img src=&quot;http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=450 height=220 %}&quot;&gt;</textarea>
+          </div>
+          <p class="card-text">Here we have set the width as 450px and the height as 220px.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Set width only</h5>
+          <img src="{% url 'placeholder' width=220 %}" class="img-fluid" alt="220px x 220px">
+          <div><button class="btn btn-outline-secondary copy-button" type="button"
+                data-toggle="tooltip" title="Copy to Clipboard" data-clipboard-target="#copy-input-2">Copy</button>
+            <textarea class="form-control mt-2" id="copy-input-2" rows="2" readonly>&lt;img src=&quothttp{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=220 %}&quot&gt;</textarea>
+          </div>
+          <p class="card-text">Here, we have set the width only. The heigth is automatically the same as the with and a square is created.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Set background color</h5>
+          <img src="{% url 'placeholder' width=300 height=200 backcolor='789abc' %}" class="img-fluid" alt="300px x 200px">
+          <div><button class="btn btn-outline-secondary copy-button" type="button"
+                data-toggle="tooltip" title="Copy to Clipboard" data-clipboard-target="#copy-input-3">Copy</button>
+            <textarea class="form-control mt-2" id="copy-input-3" rows="2" readonly>&lt;img src=&quothttp{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=300 height=200 backcolor='789abc' %}&quot&gt;</textarea>
+          </div>
+          <p class="card-text">Here we have set the background color as required. The foreground is still the default.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Set background and foreground colors</h5>
+          <img src="{% url 'placeholder' width=250 backcolor='123456' forecolor='dddddd' %}" class="img-fluid" alt="250px x 250px">
+          <div><button class="btn btn-outline-secondary copy-button" type="button"
+                data-toggle="tooltip" title="Copy to Clipboard" data-clipboard-target="#copy-input-4">Copy</button>
+            <textarea class="form-control mt-2" id="copy-input-4" rows="2" readonly>&lt;img src=&quothttp{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=250 backcolor='123456' forecolor='dddddd' %}&quot&gt;</textarea>
+          </div>
+          <p class="card-text">Here we have set the background and foreground colors as required. For this example, only the width is set to show the height is still optional.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Set file type</h5>
+          <img src="{% url 'placeholder' width=450 height=200  backcolor='654321' forecolor='fedcba' format='jpg' %}" class="img-fluid" alt="450px x 200px">
+          <div><button class="btn btn-outline-secondary copy-button" type="button"
+                data-toggle="tooltip" title="Copy to Clipboard" data-clipboard-target="#copy-input-5">Copy</button>
+            <textarea class="form-control mt-2" id="copy-input-5" rows="2" readonly>&lt;img src=&quothttp{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=450 height=200 backcolor='654321' forecolor='fedcba' format='jpg' %}&quot&gt;</textarea>
+          </div>
+          <p class="card-text">Here we have generated the image in JPG format.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Custom Text</h5>
+          <img src="{% url 'placeholder' width=500 height=200  %}?text=Custom Text" class="img-fluid" alt="500px x 200px">
+          <div><button class="btn btn-outline-secondary copy-button" type="button"
+                data-toggle="tooltip" title="Copy to Clipboard" data-clipboard-target="#copy-input-6">Copy</button>
+            <textarea class="form-control mt-2" id="copy-input-6" rows="2" readonly>&lt;img src=&quothttp{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'placeholder' width=500 height=200 %}?text=Custom Text&quot&gt;</textarea>
+          </div>
+          <p class="card-text">Here we have generated the image in JPG format.</p>
+        </div>
+      </div>
     </div>
   </div>
 
-{% endblock %}
+  <!-- The Modal -->
+  <div class="modal" id="viewModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Placeholder Preview</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <img id="preview" class="img-fluid" src="" alt="Loading....">
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <p>Important, larger images are responsivly scalled down to fit width.</p>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block javascript %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
+
+<script type="text/javascript">
+  (function($) {
+    jQuery.validator.setDefaults({
+      debug: true,
+      success: "valid"
+    });
+
+    // Add tooltips to the copy buttons
+    $('.copy-button').tooltip();
+
+    //
+    $('#viewModal').on('shown.bs.modal', function (e) {
+      result = $("#result").text();
+      result = result.replace('<img src="', '');
+      result = result.replace('">', '');
+      $('#viewModal img').attr('src', result);
+    })
+
+    // Function to get field values
+    function getFieldValue(field){
+      if ($(field).val() != ''){
+        return $(field).val() + "/";
+      } else {
+        return '';
+      }
+    }
+
+    // Function to build the result
+    function buildResult() {
+      if ($("#builderForm").valid()) {
+        height = getFieldValue('#height');
+        width = getFieldValue('#width');
+        backcolor = getFieldValue('#backcolor');
+        forecolor = getFieldValue('#forecolor');
+        format = $('#format').children("option:selected").val();
+        if (format != '') { format += '/'}
+        text = getFieldValue('#text');
+        if (text != '') { text = '?text=' + text.replace('/', '') }
+        $("#result").text('<img src="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url "home" %}' + width + height + backcolor + forecolor + format + text + '">');
+        $("#viewButton").removeClass('disabled');
+        $("#viewButton").prop('disabled', false);
+      } else {
+        $("#result").text('Invalid Entry. See errors above.');
+        $("#viewButton").addClass('disabled');
+        $("#viewButton").prop('disabled', true);
+      }
+    }
+
+    // Clear builder result on form reset
+    $("#reset").on('click', function(event) {
+      $('#builderForm label[class="error"]').remove();
+      $("#result").text('');
+      $("#format").val('');
+      $('#builderForm input[type=text]').val('');
+    });
+
+    // Any change to the form, update the result
+    $('#builderForm input[type=text]').keyup(function() {
+      buildResult();
+    });
+
+    $( "#format" ).change(function() {
+      buildResult();
+    });
+
+    // Custom validate empty or 6 hex characters
+    var hexcolor_invalid = function(value) {
+        return value.match(/^(\s*|[a-f0-9]{6})$/i) !== null;
+    }
+
+    $.validator.addMethod("hexcolor", function(value, element) {
+        return hexcolor_invalid(value);
+    }, 'Color must be 6 hexidecimal characters.');
+
+    // Validate builderForm
+    $("#builderForm").validate({
+      errorPlacement: function(error, element) {
+        error.insertAfter( element.parent(".input-group") );
+      },
+      rules: {
+        width: {
+          required: true,
+          digits: true,
+          range: [1, 1920]
+        },
+        height: {
+          required: false,
+          digits: true,
+          range: [1, 1080]
+        },
+        backcolor: {
+          required: false,
+          hexcolor: true
+        },
+        forecolor: {
+          required: false,
+          hexcolor: true
+        }
+      }
+    });
+
+    $('.copy-button').tooltip();
+    var clipboard = new ClipboardJS('.copy-button');
+  })(jQuery);
+</script>
+{% endblock javascript %}
