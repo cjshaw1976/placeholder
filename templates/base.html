@@ -17,6 +17,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"/>
 
     <!-- Custom styles for this template -->
+    <link href="{% static 'css/gh-fork-ribbon.css' %}" rel="stylesheet">
     <link href="{% static 'css/mysite.css' %}" rel="stylesheet">
 
 </head>
@@ -25,11 +26,36 @@
 
   <!-- Top Navigation -->
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="{% url 'home' %}">Placeholder By Amid Africa</a>
+      <a class="navbar-brand" href="{% url 'home' %}">Placeholder by Amid Africa</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <form class="form-inline my-2 my-lg-0 col-md-7">
+          <div class="form-group has-search col-12">
+              <span class="fa fa-search form-control-feedback"></span>
+              <input type="text" class="form-control col-12" placeholder="Search">
+            </div>
+        </form>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Sign up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Sign In</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="#">About</a>
+              <a class="dropdown-item" href="#">FAQ</a>
+            </div>
+          </li>
+        </ul>
+      </div>
     </nav>
+    <a class="d-none d-md-block github-fork-ribbon right-top" href="https://github.com/amid-africa/placeholder" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
 
 
   <!-- Main Container -->
