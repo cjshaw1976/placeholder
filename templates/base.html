@@ -3,18 +3,22 @@
 <html>
 
 <head>
-  <title>Django Bootstrap Starter Template</title>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+    <meta name="description" content="Generate image placeholders for your project on demand. Set the size, color, format and text intuitively. Use our builder to create placeholders in seconds.">
+    <meta name="author" content="Amid Africa">
+    <meta name="robots" content="index, follow">
+    <title>Placeholder Amid Africa | Placeholder Images for your project made simple</title>
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
 
     <!-- Bootstrap CDN -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <!-- Font awesome CDN -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"/>
+
+    <!-- Cookies Alert CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Wruczek/Bootstrap-Cookie-Alert@gh-pages/cookiealert.css">
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/gh-fork-ribbon.css' %}" rel="stylesheet">
@@ -70,6 +74,15 @@
     <p>&copy; <a href="https://amid.africa" target="_blank">Amid Africa</a> 2019 - MIT Licence</p>
   </footer>
 
+  <!-- START Bootstrap-Cookie-Alert -->
+  <div class="alert text-center cookiealert" role="alert">
+    This site uses cookies to ensure you get the best functional experience on this website. <a href="https://cookiesandyou.com/" target="_blank">Learn more</a>
+
+    <button type="button" class="btn btn-primary btn-sm acceptcookies" aria-label="Close">
+        I understand
+    </button>
+  </div>
+  <!-- END Bootstrap-Cookie-Alert -->
 
   <!-- JQuery -->
   <script
@@ -82,6 +95,10 @@
   src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"
   integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP"
   crossorigin="anonymous"></script>
+
+  <!-- Cookie Alert -->
+  <script
+  src="https://cdn.jsdelivr.net/gh/Wruczek/Bootstrap-Cookie-Alert@gh-pages/cookiealert.js"></script>
 
   <!-- JavaScript Container -->
   {% block javascript %}
