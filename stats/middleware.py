@@ -1,4 +1,9 @@
+from django.db.models import F
+from django.http import HttpResponse
+
+from celery import shared_task
 import datetime
+import time
 
 from .models import DataLog, GeoCities, GeoIP, LocationLog, VisitorLog
 
@@ -17,6 +22,7 @@ def getLocation(ipaddress):
 
 
 """ Log where our placeholders are being used, count uses by hour """
+@shared_task
 class LogRequestMiddleware(object):
 
     def __init__(self, get_response):
@@ -24,6 +30,18 @@ class LogRequestMiddleware(object):
 
     def __call__(self, request):
         return self.get_response(request)
+
+    def process_request(self, request):
+        "Start time at request coming in"
+        request.start_time = time.time()
+
+    def process_response(self, request, response):
+        "End of request, take time"
+        total = time.time() - request.start_time
+
+        # Add the header.
+        response["X-total-time"] = int(total * 1000)
+        return response
 
     def process_view(self, request, view_func, *view_args, **view_kwargs):
         # Try to get the referer
