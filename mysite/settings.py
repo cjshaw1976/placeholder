@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'e4v0)wjvrscqjc-_!mi2zngc_onvz*(b^i*s&%2t3-&k!ac3x('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -35,8 +35,10 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sitemaps',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'stats',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'stats.middleware.LogRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
