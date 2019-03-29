@@ -4,12 +4,19 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path, register_converter
 
 from .converters import (HexColorConverter, MaxWidthConverter,
                          MaxHeightConverter, FileFormatConverter)
 
+from .sitemaps import StaticViewSitemap
 from .views import HomeView, PlaceholderView
+
+sitemaps = {
+    'static': StaticViewSitemap,
+}
+
 register_converter(FileFormatConverter, 'fileformat')
 register_converter(HexColorConverter, 'hexcolor')
 register_converter(MaxHeightConverter, 'maxheight')
@@ -30,6 +37,8 @@ urlpatterns = [
     path('<maxwidth:width>/<maxheight:height>/<hexcolor:backcolor>/<fileformat:format>/', PlaceholderView, name="placeholder"),
     path('<maxwidth:width>/<maxheight:height>/<hexcolor:backcolor>/<hexcolor:forecolor>/', PlaceholderView, name="placeholder"),
     path('<maxwidth:width>/<maxheight:height>/<hexcolor:backcolor>/<hexcolor:forecolor>/<fileformat:format>/', PlaceholderView, name="placeholder"),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+                        name='django.contrib.sitemaps.views.sitemap'),
 ]
 
 if settings.DEBUG:
