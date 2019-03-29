@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import DataLog, LocationLog, VisitorLog
+
+admin.site.register(DataLog)
+admin.site.register(LocationLog)
+admin.site.register(VisitorLog)
